@@ -1,0 +1,96 @@
+{
+    // ========================== 基本配置 ==========================
+    "editor.fontSize": 16,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.formatOnSaveMode": "file",
+    "window.restoreWindows": "none",
+    // 保持 Git 状态在侧边栏显示
+    "git.decorations.enabled": true,
+    // 仅关闭 LSP 问题（错误/警告）在侧边栏文件和文件夹上的颜色与数字高亮
+    "problems.decorations.enabled": false,
+    // ========================== theme 插件: Gruvbox Theme ==========================
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    // ========================== java 插件: Language Support for Java(TM) by Red Hat ==========================
+    // 1. 调整 JDT LS 内存（默认可能不够用，建议给 2GB ~ 4GB，根据机器配置调整）
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
+    // 2. 避免频繁触发全量构建（建议改为按需触发或后台构建优化）
+    "java.autobuild.enabled": true,
+    "java.maxConcurrentBuilds": 4,
+    // 3. 构建配置文件变动时的刷新策略（避免改一下 pom/gradle 就频繁触发全局索引）
+    "java.configuration.updateBuildConfiguration": "interactive",
+    // 4. 排除不需要索引的大目录/生成目录（显著减轻磁盘 I/O 和内存）
+    "java.import.exclusions": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/target/**",
+        "**/build/**",
+        "**/.flatpak-builder/**",
+    ],
+    // Maven 优化：关闭无意义的索引更新，指定本地 Maven 路径
+    "java.configuration.maven.userSettings": "/Users/docryze/.m2/settings.xml", // 填入你的 settings.xml 绝对路径（如适用）
+    "java.maven.downloadSources": false, // 导入项目时不自动下载 Source（需要时再下载）
+    // Gradle 优化：开启 Gradle Wrapper，并为 Gradle 分配独立 JVM 内存
+    "java.import.gradle.wrapper.enabled": true,
+    "java.import.gradle.jvmArguments": "-Xmx2048m -XX:+UseParallelGC",
+    // 关闭 CodeLens 引用显示（大型项目中很消耗性能）
+    "java.referencesCodeLens.enabled": false,
+    // 悬浮提示中关闭冗长的方法描述（减少计算量）
+    "java.signatureHelp.description.enabled": false,
+    // 开启 Lombok 支持（如果项目使用了 Lombok，确保开启以避免报错）
+    "java.jdt.ls.lombokSupport.enabled": true,
+    "java.configuration.runtimes": [
+        {
+            "default": true,
+            "name": "JavaSE-26",
+            "path": "/usr/local/opt/openjdk@26/libexec/openjdk.jdk/Contents/Home"
+        }
+    ],
+    "redhat.telemetry.enabled": false, // 启用后缀补全（如 .match、.if、.ref）
+    "java.compile.nullAnalysis.mode": "disabled", //禁用null检查
+    // ========================== rust 插件: rust-analyzer ==========================
+    // 1. 优化后台 check 逻辑（关键）：默认是保存时立即 check
+    "rust-analyzer.check.command": "clippy", // 换成 clippy 可以在保存时获取更优质的 lint 提示
+    "rust-analyzer.checkOnSave": true,
+    // 2. 限制分析深度，防止在大型依赖项中陷入过度计算
+    "rust-analyzer.cachePriming.enable": false, // 关闭预热缓存，启动更快（需要时再按需索引）
+    "rust-analyzer.lru.capacity": 1024, // 调小 LRU 缓存上限（默认偏大），降低内存占用
+    // 3. 避免不必要的编译产物锁定，提升构建速度
+    "rust-analyzer.check.extraArgs": [
+        "--target-dir",
+        "target/analyzer" // 独立后台 check 的 target 目录，防止与终端中的 cargo build 抢占文件锁
+    ],
+    // 开启过程宏支持（提供准确的代码补全与语法高亮）
+    "rust-analyzer.procMacro.enable": true,
+    // 只对特定的常用宏启用属性扩展，降低 CPU 开销
+    "rust-analyzer.procMacro.attributes.enable": true,
+    // 限制 proc-macro-srv 的内存/生命周期
+    "rust-analyzer.procMacro.ignored": {
+        // 如果发现某个三方库的宏极为卡顿，可以在此处排除
+        // "some_crate": ["some_macro"]
+    },
+    // 限制行内提示的显示范围，只保留真正有价值的
+    "rust-analyzer.inlayHints.typeHints.enable": true,
+    "rust-analyzer.inlayHints.parameterHints.enable": true,
+    "rust-analyzer.inlayHints.chainingHints.enable": true, // 显示链式调用的中间返回类型
+    // 关闭不必要的冗余提示
+    "rust-analyzer.inlayHints.closingBraceHints.enable": false, // 关闭末尾花括号的闭合注释
+    "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "never", // 默认隐藏生命周期消除提示
+    // 避免提示文本过长截断界面
+    "rust-analyzer.inlayHints.typeHints.hideNamedConstructor": true,
+    // 智能导入格式优化
+    "rust-analyzer.imports.granularity.group": "module", // 按模块分组 use 语句
+    "rust-analyzer.imports.prefix": "crate", // 优先使用绝对路径导入
+    // 自动补全优化
+    "rust-analyzer.completion.autoimport.enable": true,
+    "rust-analyzer.completion.postfix.enable": true,
+    // ========================== java 语言配置 ==========================
+    "[java]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+        }
+    },
+    // ========================== other config ==========================
+    "other.config": true,
+}
