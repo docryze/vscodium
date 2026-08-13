@@ -17,6 +17,9 @@
     // ========================== theme 插件: Gruvbox Icons (Material) ==========================
     "workbench.iconTheme": "gruvbox-material-icons",
     "gruvbox-material-icons.folders.theme": "classic",
+    "workbench.colorCustomizations": {
+        "gitDecoration.ignoredResourceForeground": "#a09f9f"
+    },
     // ========================== java 插件: Language Support for Java(TM) by Red Hat ==========================
     // 1. 调整 JDT LS 内存（默认可能不够用，建议给 2GB ~ 4GB，根据机器配置调整）
     "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
