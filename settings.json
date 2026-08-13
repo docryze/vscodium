@@ -11,8 +11,11 @@
     // 仅关闭 LSP 问题（错误/警告）在侧边栏文件和文件夹上的颜色与数字高亮
     "problems.decorations.enabled": false,
     "terminal.integrated.initialHint": false,
-    // ========================== theme 插件: Gruvbox Material ==========================
+    // ========================== theme 插件: Gruvbox Material (Community) ==========================
     "workbench.colorTheme": "Gruvbox Material Dark",
+    // ========================== theme 插件: Gruvbox Icons (Material) ==========================
+    "workbench.iconTheme": "gruvbox-material-icons",
+    "gruvbox-material-icons.folders.theme": "classic",
     // ========================== java 插件: Language Support for Java(TM) by Red Hat ==========================
     // 1. 调整 JDT LS 内存（默认可能不够用，建议给 2GB ~ 4GB，根据机器配置调整）
     "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
