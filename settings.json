@@ -8,6 +8,7 @@
     "window.restoreWindows": "none",
     // 保持 Git 状态在侧边栏显示
     "git.decorations.enabled": true,
+    "git.blame.statusBarItem.enabled": false,
     // 仅关闭 LSP 问题（错误/警告）在侧边栏文件和文件夹上的颜色与数字高亮
     "problems.decorations.enabled": false,
     "terminal.integrated.initialHint": false,
@@ -23,7 +24,7 @@
     "java.autobuild.enabled": true,
     "java.maxConcurrentBuilds": 4,
     // 3. 构建配置文件变动时的刷新策略（避免改一下 pom/gradle 就频繁触发全局索引）
-    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.updateBuildConfiguration": "automatic",
     // 4. 排除不需要索引的大目录/生成目录（显著减轻磁盘 I/O 和内存）
     "java.import.exclusions": [
         "**/node_modules/**",
