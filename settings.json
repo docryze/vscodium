@@ -59,6 +59,7 @@
     "redhat.telemetry.enabled": false, // 启用后缀补全（如 .match、.if、.ref）
     "java.compile.nullAnalysis.mode": "disabled", //禁用null检查
     // ========================== rust 插件: rust-analyzer ==========================
+    "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer",
     // 1. 优化后台 check 逻辑（关键）：默认是保存时立即 check
     "rust-analyzer.check.command": "clippy", // 换成 clippy 可以在保存时获取更优质的 lint 提示
     "rust-analyzer.checkOnSave": true,
